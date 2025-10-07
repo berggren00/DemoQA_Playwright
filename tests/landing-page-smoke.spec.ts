@@ -5,32 +5,19 @@ test.beforeEach(async ({ landingPage }) => {
 })
 
 
-test('open forms page', async ({ landingPage, page }) => {
-  await landingPage.goToSubPage("Forms");
-  await expect(page).toHaveURL(/forms/);
-});
+const pages = [
+  {name: "Forms", url: /\/forms/i },
+  {name: "Elements", url: /\/elements/i },
+  {name: "Alerts, Frame & Windows", url: /\/alertsWindows/i },
+  {name: "Widgets", url: /\/widgets/i },
+  {name: "Interactions", url: /\/interaction/i },
+  {name: "Book Store Application", url: /\/books/i}
+]
 
-test('open elements page', async ({ landingPage, page }) => {
-  await landingPage.goToSubPage("Elements");
-  await expect(page).toHaveURL(/elements/);
-})
+for (const p of pages) {
+  test(`@smoke go to ${p.name}`, async ({ landingPage, page}) => {
+    await landingPage.goToSubPage(p.name);
+    await expect(page).toHaveURL(p.url);
+  });
 
-test('open alerts page', async ({ landingPage, page }) => {
-  await landingPage.goToSubPage("Alerts, Frame & Windows");
-  await expect(page).toHaveURL(/alertsWindow/);
-})
-
-test('open widgets page', async ({ landingPage, page }) => {
-  await landingPage.goToSubPage("Widgets");
-  await expect(page).toHaveURL(/widgets/);
-})
-
-test('open interactions page', async ({ landingPage, page }) => {
-  await landingPage.goToSubPage("Interactions");
-  await expect(page).toHaveURL(/interaction/);
-})
-
-test('open book store page', async ({ landingPage, page }) => {
-  await landingPage.goToSubPage("Book Store Application");
-  await expect(page).toHaveURL(/books/);
-})
+}
