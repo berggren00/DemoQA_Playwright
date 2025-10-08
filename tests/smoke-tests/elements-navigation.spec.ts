@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import { BasePage } from '../../Pages/BasePage'
 import { ElementsPage } from '../../Pages/Elements/ElementsPage'
 import { TextBox } from '../../Pages/Elements/TextBox'
+import { Buttons } from '../../Pages/Elements/Buttons'
 
 test('select list item menu', async ({ page }) => {
     const elements = new ElementsPage(page)
@@ -18,4 +19,16 @@ test('text box functionality', async ({ page }) => {
 
     const textbox = new TextBox(page)
     await textbox.fillTextBox("Andreas", "ab@gmail.com", "address 123", "321 address")
+})
+
+test('click functionality', async ({ page }) => {
+    const elements = new ElementsPage(page)
+    await elements.open();
+    await elements.goToListElement("Buttons");
+    await elements.assertLoaded(/buttons/i);
+
+    const button = new Buttons(page);
+    await button.doubleClick();
+    await button.rightClick();
+    await button.singleClick();
 })
