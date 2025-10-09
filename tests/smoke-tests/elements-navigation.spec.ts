@@ -45,3 +45,9 @@ test('enable button', async ({ page }) => {
     await dynamic.assertColorChange();
     await dynamic.assertButtonVisible();
 })
+
+// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
+// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
+// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
+// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
+// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
