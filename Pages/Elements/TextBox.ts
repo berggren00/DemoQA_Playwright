@@ -4,7 +4,7 @@ import { BasePage } from '../BasePage';
 
 export class TextBox extends BasePage {
 
-private readonly nameField: Locator;
+    private readonly nameField: Locator;
     private readonly emailField: Locator;
     private readonly addressField: Locator;
     private readonly permAddressField: Locator;

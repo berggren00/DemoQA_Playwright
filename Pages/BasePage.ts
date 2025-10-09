@@ -19,6 +19,10 @@ export class BasePage {
         await this.page.waitForURL(url);
     }
 
+    async assertTitle(expected: string) {
+        await expect(this.page).toHaveTitle(expected);
+    }
+
     async fill(locator: Locator, value: string, opts?: { timeout?: number}) {
         await locator.fill(value, { timeout: opts?.timeout });
         await expect(locator).toHaveValue(value, {timeout: opts?.timeout });

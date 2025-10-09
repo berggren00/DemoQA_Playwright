@@ -13,21 +13,25 @@ export class Buttons extends BasePage {
         this.singleClickButton = this.page.getByRole('button', { name: 'Click Me' }).nth(2);
     }
 
+    getConfirmMessage(msg: string): Locator {
+        return this.page.locator('p', { hasText: msg })
+    }
+
     async doubleClick() {
         await expect(this.doubleClickButton).toBeVisible();
         await this.doubleClickButton.dblclick();
-        await this.assertVisible(this.page.getByText("You have done a double click"))
+        await this.assertVisible(this.getConfirmMessage("You have done a double click"))
     }
 
     async rightClick() {
         await expect(this.rightClickButton).toBeVisible();
         await this.rightClickButton.click({button: 'right'})
-        await this.assertVisible(this.page.getByText("You have done a right click"))
+        await this.assertVisible(this.getConfirmMessage("You have done a right click"))
     }
 
     async singleClick() {
         await expect(this.singleClickButton).toBeVisible();
         await this.singleClickButton.click();
-        await this.assertVisible(this.page.getByText("You have done a dynamic click"))
+        await this.assertVisible(this.getConfirmMessage("You have done a dynamic click"))
     }
 }
