@@ -8,7 +8,9 @@ export class ElementsPage extends BasePage {
      
 
     getListElement(name: string): Locator {
-        return this.page.locator('li', { hasText: name });
+        const sidebar = this.page.locator('.element-list .menu-list');
+        return sidebar.locator('li').filter({ has: this.page.getByText(name, { exact: true })
+        });
     }
 
     async open() {

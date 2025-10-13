@@ -5,36 +5,26 @@ import { Buttons } from '../../Pages/Elements/Buttons'
 import { DynamicProperties } from '../../Pages/Elements/DynamicProperties'
 import { beforeEach } from "node:test";
 
-test.beforeEach(async ({ elementsPage }) => {
+test.beforeEach(async ({ elementsPage }) => {                 // Skapa array med list elements -> loopa igenom för varje val
     await elementsPage.open()
 })
 
-test('select list item menu', async ({ elementsPage }) => {
-    await elementsPage.goToListElement("Text Box");
-    await elementsPage.assertLoaded(/text-box/i);
-})
 
-test('text box functionality', async ({ elementsPage }) => {
-    const textbox = await elementsPage.goToTextbox();
-    await textbox.fillTextBox("Andreas", "ab@gmail.com", "address 123", "321 address")
-})
+const items = [
+{ name: "Text Box", regex: /text-box/i },
+{ name: "Check Box", regex: /checkbox/i },
+{ name: "Radio Button", regex: /radio-button/i },
+{ name: "Web Tables", regex: /webtables/i },
+{ name: "Buttons", regex: /buttons/i },
+{ name: "Links", regex: /links/i },
+{ name: "Broken Links - Images", regex: /broken/i },
+{ name: "Upload and Download", regex: /upload-download/i },
+{ name: "Dynamic Properties", regex: /dynamic-properties/i }
+]
 
-test('click functionality', async ({ elementsPage }) => {
-    const buttons = await elementsPage.goToButtons();
-    await buttons.doubleClick();
-    await buttons.rightClick();
-    await buttons.singleClick();
-})
-
-test('enable button', async ({ elementsPage }) => {
-    const dynamic = await elementsPage.goToDynamicProp();
-    await dynamic.assertButtonEnabled("Will enable 5 seconds")
-    await dynamic.assertColorChange();
-    await dynamic.assertButtonVisible();
-})
-
-// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
-// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
-// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
-// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
-// TODO: Refactor testsuite with fixtures to prevent repeating/copying!!
+for (const item of items) {
+    test(`@smoke can open ${item.name}`, async ({ elementsPage }) => {
+        await elementsPage.goToListElement(item.name);
+        await elementsPage.assertLoaded(item.regex)
+    })
+}
