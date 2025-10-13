@@ -1,8 +1,5 @@
 import { test, expect } from "../fixtures/PageFixtures";
 
-test.beforeEach(async ({ landingPage }) => {
-  await landingPage.open()
-})
 
 
 const pages = [
