@@ -3,6 +3,7 @@ import { BasePage } from '../BasePage'
 import { Buttons } from './Buttons';
 import { TextBox } from './TextBox';
 import { DynamicProperties } from './DynamicProperties';
+import { WebTables } from './WebTables';
 
 export class ElementsPage extends BasePage {
      
@@ -39,6 +40,12 @@ export class ElementsPage extends BasePage {
         await this.goToListElement("Dynamic Properties");
         await this.assertLoaded(/dynamic-properties/i);
         return new DynamicProperties(this.page);
+    }
+
+    async goToWebTables() {
+        await this.goToListElement("Web Tables");
+        await this.assertLoaded(/webtables/i);
+        return new WebTables(this.page);
     }
 
 }

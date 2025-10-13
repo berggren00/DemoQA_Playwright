@@ -23,3 +23,8 @@ test('enable button', async ({ elementsPage }) => {
     await dynamic.assertColorChange();
     await dynamic.assertButtonVisible();
 })
+
+test('add new webtables form', async ({ elementsPage }) => {
+    const webtables = await elementsPage.goToWebTables();
+    await webtables.fillRegForm("dynamo", "johnson", "abcd@dcba.com", "21", "38000", "tech");
+})

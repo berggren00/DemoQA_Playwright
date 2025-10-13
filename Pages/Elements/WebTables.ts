@@ -2,5 +2,36 @@ import { test, expect, Page, Locator } from '@playwright/test'
 import { BasePage } from '../BasePage';
 
 export class WebTables extends BasePage {
+    private readonly submitButton: Locator;
+    private readonly addButton: Locator;
+    private readonly searchBar: Locator;
+
+    constructor(page: Page) {
+        super(page);
+        this.submitButton = this.page.locator('#submit');
+        this.addButton = this.page.getByRole('button', { name: "Add" });
+        this.searchBar = this.page.getByRole('searchbox', { name: "Type to search"})
+    }
     
+    getInputFields(placeholder: string): Locator {
+        return this.page.locator('#userForm .row').getByPlaceholder(placeholder, { exact: true });
+    }
+
+    async fillRegForm(name: string, lastname: string, email: string, age: string, salary: string, department: string) {
+        await this.assertVisible(this.addButton);
+        await this.addButton.click();
+        await this.getInputFields("First Name").fill(name);
+        await this.getInputFields("Last Name").fill(lastname);
+        await this.getInputFields("name@example.com").fill(email);
+        await this.getInputFields("Age").fill(age);
+        await this.getInputFields("Salary").fill(salary);
+        await this.getInputFields("Department").fill(department);
+        await this.submitButton.click();
+    }
+
+    async assertSearchResults(searchTerm: string) {
+        await this.assertVisible(this.searchBar);
+        await this.searchBar.fill(searchTerm);
+    }
+
 }
