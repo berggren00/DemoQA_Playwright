@@ -1,9 +1,4 @@
 import { test, expect } from "../fixtures/PageFixtures";
-import { ElementsPage } from '../../Pages/Elements/ElementsPage'
-import { TextBox } from '../../Pages/Elements/TextBox'
-import { Buttons } from '../../Pages/Elements/Buttons'
-import { DynamicProperties } from '../../Pages/Elements/DynamicProperties'
-import { beforeEach } from "node:test";
 
 test.beforeEach(async ({ elementsPage }) => {                 // Skapa array med list elements -> loopa igenom för varje val
     await elementsPage.open()

@@ -1,4 +1,4 @@
-import { test, expect, Locator, Page } from '@playwright/test'
+import { expect, Locator } from '@playwright/test'
 import { BasePage } from '../BasePage'
 import { Buttons } from './Buttons';
 import { TextBox } from './TextBox';
