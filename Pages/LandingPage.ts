@@ -6,7 +6,8 @@ export class LandingPage extends BasePage {
  
 
     getSubPage(name: string): Locator {
-        return this.page.getByRole('heading', { name })
+        const card = this.page.locator('.card-body');
+        return card.filter( {has: this.page.getByRole('heading', { name: name, exact: true })})
     }
 
     async open() {
