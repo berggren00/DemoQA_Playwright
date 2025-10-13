@@ -34,4 +34,5 @@ export class Buttons extends BasePage {
         await this.singleClickButton.click();
         await this.assertVisible(this.getConfirmMessage("You have done a dynamic click"))
     }
+
 }
