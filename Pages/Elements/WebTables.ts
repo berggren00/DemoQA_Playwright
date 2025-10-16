@@ -46,5 +46,13 @@ export class WebTables extends BasePage {
         await this.getInputFields("Department").fill(department);
         await this.submitButton.click();
         await expect(row).toContainText(department);
-    }        
+    }
+
+    async removePerson(person: string) {
+        const row = this.page.locator('.rt-tr-group').filter( { hasText: person })
+        const editButton = row.locator('[id^="delete-record-"]');
+        await expect(editButton).toBeVisible();
+        await editButton.click();
+        await expect(row).toBeHidden();
+    }
 }

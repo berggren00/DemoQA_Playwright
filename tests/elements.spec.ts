@@ -36,5 +36,10 @@ test('search webtables', async ({ elementsPage }) => {
 
 test('edit department in webtables', async ({ elementsPage }) => {
     const webtables = await elementsPage.goToWebTables();
-    await webtables.editPersonDepartment("Alden", "marketing")
+    await webtables.editPersonDepartment("Alden", "marketing");
+})
+
+test('remove person', async ({ elementsPage }) => {
+    const webtables = await elementsPage.goToWebTables();
+    await webtables.removePerson("Alden");
 })
