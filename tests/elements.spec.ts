@@ -28,3 +28,8 @@ test('add new webtables form', async ({ elementsPage }) => {
     const webtables = await elementsPage.goToWebTables();
     await webtables.fillRegForm("dynamo", "johnson", "abcd@dcba.com", "21", "38000", "tech");
 })
+
+test('search webtables', async ({ elementsPage }) => {
+    const webtables = await elementsPage.goToWebTables();
+    await webtables.assertSearchResults("al");
+})

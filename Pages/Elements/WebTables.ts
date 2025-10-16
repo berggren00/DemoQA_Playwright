@@ -10,7 +10,7 @@ export class WebTables extends BasePage {
         super(page);
         this.submitButton = this.page.locator('#submit');
         this.addButton = this.page.getByRole('button', { name: "Add" });
-        this.searchBar = this.page.getByRole('searchbox', { name: "Type to search"})
+        this.searchBar = this.page.getByRole('textbox', { name: "Type to search"})
     }
     
     getInputFields(placeholder: string): Locator {
@@ -31,7 +31,13 @@ export class WebTables extends BasePage {
 
     async assertSearchResults(searchTerm: string) {
         await this.assertVisible(this.searchBar);
-        await this.searchBar.fill(searchTerm);
+        await this.searchBar.fill(searchTerm).then(async () => {
+            const row = this.page.locator('.rt-tbody .rt-tr-group').first();
+            await this.assertVisible(row);
+            await expect(row).toContainText(searchTerm);
+        });
+
+        
     }
 
 }
