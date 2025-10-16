@@ -33,3 +33,8 @@ test('search webtables', async ({ elementsPage }) => {
     const webtables = await elementsPage.goToWebTables();
     await webtables.assertSearchResults("al");
 })
+
+test('edit department in webtables', async ({ elementsPage }) => {
+    const webtables = await elementsPage.goToWebTables();
+    await webtables.editPersonDepartment("Alden", "marketing")
+})

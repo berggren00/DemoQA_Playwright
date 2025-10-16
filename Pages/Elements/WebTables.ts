@@ -35,9 +35,16 @@ export class WebTables extends BasePage {
             const row = this.page.locator('.rt-tbody .rt-tr-group').first();
             await this.assertVisible(row);
             await expect(row).toContainText(searchTerm);
-        });
-
-        
+        });  
     }
 
+    async editPersonDepartment(person: string, department: string) {
+        const row = this.page.locator('.rt-tr-group').filter( { hasText: person })
+        const editButton = row.locator('[id^="edit-record-"]');
+        await this.assertVisible(row)
+        await editButton.click();
+        await this.getInputFields("Department").fill(department);
+        await this.submitButton.click();
+        await expect(row).toContainText(department);
+    }        
 }
