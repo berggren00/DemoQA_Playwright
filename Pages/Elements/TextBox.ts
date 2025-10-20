@@ -19,6 +19,11 @@ export class TextBox extends BasePage {
         this.textBoxTitle = this.page.getByRole('heading', { name: 'Text Box' })
      }
 
+    // TODO: Refactor to use this method
+    //  getInputField(labelText: string) {
+    //     return this.page.getByRole('textbox', { name: labelText }); 
+    //  }
+
     async fillTextBox(name: string, email: string, address: string, permAddress: string) {
         await this.assertVisible(this.textBoxTitle)
         await this.nameField.fill(name);
