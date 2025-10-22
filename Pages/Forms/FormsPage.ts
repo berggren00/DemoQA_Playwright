@@ -23,12 +23,9 @@ export class FormsPage extends BasePage {
         }
     }
 
-    getDateOfBirth(): Locator {
-        return this.page.getByPlaceholder("22 Oct 2025");
-    }
 
     getSubjectsInput(): Locator {
-        return this.page.locator('.subjects-auto-complete__value-container').locator('#subjectsInput');
+        return this.page.locator('.subjects-auto-complete__value-container');
     }
 
     async chooseGender(option: "Male" | "Female" | "Other"){
@@ -38,15 +35,29 @@ export class FormsPage extends BasePage {
         await radio.click( { force: true } );
     }
 
+    async fillDateOfBirth(date: string, inputValue = date) {
+        const dateInput = this.page.locator('#dateOfBirthInput'); 
+        
+        await dateInput.click();
+        await dateInput.fill(inputValue);
+        await dateInput.press('Enter');  
+        
+        await expect(dateInput).toHaveValue(date, { timeout: 3000 });
+    }
+
     async chooseHobby(hobby: "Sports" | "Reading" | "Music") {
         await this.page.getByRole('checkbox', { name: hobby }).locator('..').click()    // click on parent "div" to avoid issues & flakiness
     }
 
     async chooseSubject(subject: string, prefix = subject) {
-        const input = this.getSubjectsInput();
+        const container = this.getSubjectsInput();
+        const input = container.locator('#subjectsInput');
         await input.click();
         await input.fill(prefix);
         await input.press('Enter');
+
+        const chosenSubject = container.locator('.subjects-auto-complete__multi-value__label')
+        await expect(chosenSubject).toHaveText(subject);
     }
 
     async fillName(firstName: string, lastName: string) {
@@ -67,4 +78,6 @@ export class FormsPage extends BasePage {
             await expect(locator).toHaveValue(value);
         }
     }
+
+    
 }
