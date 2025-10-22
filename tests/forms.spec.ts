@@ -20,3 +20,11 @@ test('choose subject', async ({ page }) => {
     await form.open();
     await form.chooseSubject("comp")
 })
+
+test('fill form', async ({ page }) => {
+    const form = new FormsPage(page);
+    await form.open();
+
+    await form.fillName("John", "Lennon");
+    await form.fillContactInfo("abdc@cdba.com", "0708374256", "123 address");
+})

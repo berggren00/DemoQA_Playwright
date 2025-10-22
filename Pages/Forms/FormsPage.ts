@@ -8,20 +8,19 @@ export class FormsPage extends BasePage {
         await this.assertLoaded(/automation-practice-form/i);
     }
     
-    getFirstNameInput(): Locator {
-        return this.page.getByPlaceholder("First Name", { exact: true });
+    get nameInputs() {
+        return {
+        firstNameInput: this.page.getByPlaceholder("First Name", { exact: true }),
+        lastNameInput: this.page.getByPlaceholder("Last Name", { exact: true }),
+        };
     }
 
-    getLastNameInput(): Locator {
-        return this.page.getByPlaceholder("Last Name", { exact: true });
-    }
-
-    getEmailInput(): Locator {
-        return this.page.getByPlaceholder("name@example.com");
-    }
-
-    getMobileInput(): Locator {
-        return this.page.getByPlaceholder("Mobile Number");
+    get contactInputs() {
+        return {
+            emailInput: this.page.getByPlaceholder("name@example.com", { exact: true }),
+            mobileInput: this.page.getByPlaceholder("Mobile Number"),
+            addressInput: this.page.getByPlaceholder("Current Address"),
+        }
     }
 
     getDateOfBirth(): Locator {
@@ -48,5 +47,24 @@ export class FormsPage extends BasePage {
         await input.click();
         await input.fill(prefix);
         await input.press('Enter');
+    }
+
+    async fillName(firstName: string, lastName: string) {
+        const { firstNameInput, lastNameInput } = this.nameInputs;
+        await firstNameInput.fill(firstName);
+        await lastNameInput.fill(lastName);
+    }
+
+    async fillContactInfo(email: string, number: string, address: string) {
+        const inputs = [
+            { locator: this.contactInputs.emailInput, value: email },
+            { locator: this.contactInputs.mobileInput, value: number },
+            { locator: this.contactInputs.addressInput, value: address }
+        ];
+
+        for (const { locator, value } of inputs) {
+            await locator.fill(value);
+            await expect(locator).toHaveValue(value);
+        }
     }
 }
