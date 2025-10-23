@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "../BasePage";
+import path from "path";
 
 export class FormsPage extends BasePage {
 
@@ -86,5 +87,15 @@ export class FormsPage extends BasePage {
         }
     }
 
-    
+    async uploadImage(fileName: string) {
+        const fileChooserPromise = this.page.waitForEvent('filechooser');
+        
+        const uploadButton = this.page.getByRole('button', { name: 'Select picture' });
+        uploadButton.click();
+        
+        const fileChooser = await fileChooserPromise;
+        await fileChooser.setFiles(path.join(fileName));
+
+        await expect(uploadButton).toHaveValue(new RegExp(`${fileName}$`));
+    }
 }

@@ -1,37 +1,27 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "./fixtures/PageFixtures";
 import { FormsPage } from '../Pages/Forms/FormsPage';
 
-test('choose gender', async ({ page }) => {
-    const form = new FormsPage(page);
-    await form.open();
-    await form.chooseGender("Male");
-    await form.chooseHobby("Sports")
-    await form.chooseSubject("Computer Science");
+test('choose gender', async ({ formsPage }) => {
+    await formsPage.chooseGender("Male");
 })
 
-test('choose hobby', async ({ page }) => {
-    const form = new FormsPage(page);
-    await form.open();
-    await form.chooseHobby("Sports")
+test('choose hobby', async ({ formsPage }) => {
+    await formsPage.chooseHobby("Sports")
 })
 
-test('choose subject', async ({ page }) => {
-    const form = new FormsPage(page);
-    await form.open();
-    await form.chooseSubject("Computer Science", "comp")
+test('choose subject', async ({ formsPage }) => {
+    await formsPage.chooseSubject("Computer Science", "comp")
 })
 
-test('fill form', async ({ page }) => {
-    const form = new FormsPage(page);
-    await form.open();
-
-    await form.fillName("John", "Lennon");
-    await form.fillContactInfo("abdc@cdba.com", "0708374256", "123 address");
+test('fill form', async ({ formsPage }) => {
+    await formsPage.fillName("John", "Lennon");
+    await formsPage.fillContactInfo("abdc@cdba.com", "0708374256", "123 address");
 })
 
-test('fill dob', async ({ page }) => {
-    const form = new FormsPage(page);
-    await form.open();
-    await form.fillDateOfBirth("22 Nov 2021", "22 nove 21")
+test('fill dob', async ({ formsPage }) => {
+    await formsPage.fillDateOfBirth("22 Nov 2021", "22 nove 21")
 })
 
+test('upload image', async ({ formsPage }) => {
+    await formsPage.uploadImage("test.txt")
+})
