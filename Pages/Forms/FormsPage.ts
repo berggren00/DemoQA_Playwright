@@ -7,6 +7,8 @@ export class FormsPage extends BasePage {
         await super.open("/automation-practice-form");
         await this.assertLoaded(/automation-practice-form/i);
     }
+
+    // ------------- GETTERS ------------- //
     
     get nameInputs() {
         return {
@@ -24,9 +26,15 @@ export class FormsPage extends BasePage {
     }
 
 
-    getSubjectsInput(): Locator {
-        return this.page.locator('.subjects-auto-complete__value-container');
-    }
+    get subjectsInput() {
+        return {
+            input: this.page.locator('#subjectsInput'),
+            chosenSubject: this.page.locator('.subjects-auto-complete__multi-value__label')
+        }
+        }
+
+
+    // ------------- FUNCTIONS ------------- //
 
     async chooseGender(option: "Male" | "Female" | "Other"){
         const radio = this.page.getByRole('radio', { name: option, exact: true });
@@ -50,13 +58,12 @@ export class FormsPage extends BasePage {
     }
 
     async chooseSubject(subject: string, prefix = subject) {
-        const container = this.getSubjectsInput();
-        const input = container.locator('#subjectsInput');
+        const input = this.subjectsInput.input;
         await input.click();
         await input.fill(prefix);
         await input.press('Enter');
 
-        const chosenSubject = container.locator('.subjects-auto-complete__multi-value__label')
+        const chosenSubject = this.subjectsInput.chosenSubject;
         await expect(chosenSubject).toHaveText(subject);
     }
 
